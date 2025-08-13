@@ -1,4 +1,9 @@
-class WorkoutSet {
+import 'package:dart_mappable/dart_mappable.dart';
+
+part 'workout_set.mapper.dart';
+
+@MappableClass()
+class WorkoutSet with WorkoutSetMappable {
   final List<int> reps;
 
   WorkoutSet(this.reps);

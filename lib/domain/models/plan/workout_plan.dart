@@ -1,8 +1,15 @@
+import 'package:dart_mappable/dart_mappable.dart';
+
 import '../models.dart';
+
+part 'workout_plan.mapper.dart';
 
 /// Based on the provided exercises, nr of weeks, days per week, and sets per day,
 /// generates a structured workout plan.
-class WorkoutPlan {
+///
+///
+@MappableClass()
+class WorkoutPlan with WorkoutPlanMappable {
   final List<ExercisePlan> exercises;
   final int weeks;
   final int daysPerWeek;

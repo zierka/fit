@@ -1,12 +1,12 @@
-import 'package:fit/domain/frameworks/local_storage.dart';
 import 'package:fit/domain/models/models.dart';
+import 'package:fit/domain/repositories/workout_repo.dart';
 
 class HomeViewModel {
-  HomeViewModel(this._localStorage) {
+  HomeViewModel(this._workoutRepo) {
     _load();
   }
 
-  final LocalStorage _localStorage;
+  final WorkoutRepo _workoutRepo;
 
   late final WorkoutPlan plan;
   late final WorkoutSessionHistory history;

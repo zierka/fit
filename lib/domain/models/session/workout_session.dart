@@ -1,6 +1,11 @@
+import 'package:dart_mappable/dart_mappable.dart';
+
 import '../models.dart';
 
-class WorkoutSession {
+part 'workout_session.mapper.dart';
+
+@MappableClass()
+class WorkoutSession with WorkoutSessionMappable {
   WorkoutSession({
     required this.date,
     required this.weekNumber,
@@ -10,4 +15,6 @@ class WorkoutSession {
   final DateTime date;
   final int weekNumber;
   final WorkoutDay day;
+
+  int get order => weekNumber * 100 + day.dayNumber;
 }

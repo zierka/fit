@@ -1,6 +1,11 @@
+import 'package:dart_mappable/dart_mappable.dart';
+
 import 'exercise.dart';
 
-class ExercisePlan {
+part 'exercise_plan.mapper.dart';
+
+@MappableClass()
+class ExercisePlan with ExercisePlanMappable {
   final Exercise exercise;
   final int startReps;
   final int targetReps;

@@ -1,7 +1,12 @@
+import 'package:dart_mappable/dart_mappable.dart';
+
 import 'exercise.dart';
 import 'workout_set.dart';
 
-class WorkoutDay {
+part 'workout_day.mapper.dart';
+
+@MappableClass()
+class WorkoutDay with WorkoutDayMappable {
   final int dayNumber;
   final Map<Exercise, WorkoutSet> exercises;
 

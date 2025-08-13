@@ -1,0 +1,134 @@
+// coverage:ignore-file
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format off
+// ignore_for_file: type=lint
+// ignore_for_file: unused_element, unnecessary_cast, override_on_non_overriding_member
+// ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
+
+part of 'workout_set.dart';
+
+class WorkoutSetMapper extends ClassMapperBase<WorkoutSet> {
+  WorkoutSetMapper._();
+
+  static WorkoutSetMapper? _instance;
+  static WorkoutSetMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals.use(_instance = WorkoutSetMapper._());
+    }
+    return _instance!;
+  }
+
+  @override
+  final String id = 'WorkoutSet';
+
+  static List<int> _$reps(WorkoutSet v) => v.reps;
+  static const Field<WorkoutSet, List<int>> _f$reps = Field('reps', _$reps);
+  static int _$maxReps(WorkoutSet v) => v.maxReps;
+  static const Field<WorkoutSet, int> _f$maxReps = Field(
+    'maxReps',
+    _$maxReps,
+    mode: FieldMode.member,
+  );
+
+  @override
+  final MappableFields<WorkoutSet> fields = const {
+    #reps: _f$reps,
+    #maxReps: _f$maxReps,
+  };
+
+  static WorkoutSet _instantiate(DecodingData data) {
+    return WorkoutSet(data.dec(_f$reps));
+  }
+
+  @override
+  final Function instantiate = _instantiate;
+
+  static WorkoutSet fromMap(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<WorkoutSet>(map);
+  }
+
+  static WorkoutSet fromJson(String json) {
+    return ensureInitialized().decodeJson<WorkoutSet>(json);
+  }
+}
+
+mixin WorkoutSetMappable {
+  String toJson() {
+    return WorkoutSetMapper.ensureInitialized().encodeJson<WorkoutSet>(
+      this as WorkoutSet,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return WorkoutSetMapper.ensureInitialized().encodeMap<WorkoutSet>(
+      this as WorkoutSet,
+    );
+  }
+
+  WorkoutSetCopyWith<WorkoutSet, WorkoutSet, WorkoutSet> get copyWith =>
+      _WorkoutSetCopyWithImpl<WorkoutSet, WorkoutSet>(
+        this as WorkoutSet,
+        $identity,
+        $identity,
+      );
+  @override
+  String toString() {
+    return WorkoutSetMapper.ensureInitialized().stringifyValue(
+      this as WorkoutSet,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return WorkoutSetMapper.ensureInitialized().equalsValue(
+      this as WorkoutSet,
+      other,
+    );
+  }
+
+  @override
+  int get hashCode {
+    return WorkoutSetMapper.ensureInitialized().hashValue(this as WorkoutSet);
+  }
+}
+
+extension WorkoutSetValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, WorkoutSet, $Out> {
+  WorkoutSetCopyWith<$R, WorkoutSet, $Out> get $asWorkoutSet =>
+      $base.as((v, t, t2) => _WorkoutSetCopyWithImpl<$R, $Out>(v, t, t2));
+}
+
+abstract class WorkoutSetCopyWith<$R, $In extends WorkoutSet, $Out>
+    implements ClassCopyWith<$R, $In, $Out> {
+  ListCopyWith<$R, int, ObjectCopyWith<$R, int, int>> get reps;
+  $R call({List<int>? reps});
+  WorkoutSetCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
+}
+
+class _WorkoutSetCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, WorkoutSet, $Out>
+    implements WorkoutSetCopyWith<$R, WorkoutSet, $Out> {
+  _WorkoutSetCopyWithImpl(super.value, super.then, super.then2);
+
+  @override
+  late final ClassMapperBase<WorkoutSet> $mapper =
+      WorkoutSetMapper.ensureInitialized();
+  @override
+  ListCopyWith<$R, int, ObjectCopyWith<$R, int, int>> get reps => ListCopyWith(
+    $value.reps,
+    (v, t) => ObjectCopyWith(v, $identity, t),
+    (v) => call(reps: v),
+  );
+  @override
+  $R call({List<int>? reps}) =>
+      $apply(FieldCopyWithData({if (reps != null) #reps: reps}));
+  @override
+  WorkoutSet $make(CopyWithData data) =>
+      WorkoutSet(data.get(#reps, or: $value.reps));
+
+  @override
+  WorkoutSetCopyWith<$R2, WorkoutSet, $Out2> $chain<$R2, $Out2>(
+    Then<$Out2, $R2> t,
+  ) => _WorkoutSetCopyWithImpl<$R2, $Out2>($value, $cast, t);
+}
+

@@ -1,4 +1,9 @@
-class Exercise {
+import 'package:dart_mappable/dart_mappable.dart';
+
+part 'exercise.mapper.dart';
+
+@MappableClass()
+class Exercise with ExerciseMappable {
   final String name;
 
   Exercise({required this.name});

@@ -1,10 +1,15 @@
+import 'package:dart_mappable/dart_mappable.dart';
+
 import 'workout_day.dart';
 
-class WorkoutWeek {
+part 'workout_week.mapper.dart';
+
+@MappableClass()
+class WorkoutWeek with WorkoutWeekMappable {
+  WorkoutWeek({required this.weekNumber, required this.days});
+
   final int weekNumber;
   final List<WorkoutDay> days;
-
-  WorkoutWeek({required this.weekNumber, required this.days});
 
   @override
   String toString() {
