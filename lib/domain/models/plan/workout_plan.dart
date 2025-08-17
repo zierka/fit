@@ -79,7 +79,9 @@ class WorkoutPlan with WorkoutPlanMappable {
           dayExercises[ex.exercise] = WorkoutSet(repsList);
         }
 
-        days.add(WorkoutDay(dayNumber: d, exercises: dayExercises));
+        days.add(
+          WorkoutDay(weekNumber: w, dayNumber: d, exercises: dayExercises),
+        );
       }
 
       plan.add(WorkoutWeek(weekNumber: w, days: days));

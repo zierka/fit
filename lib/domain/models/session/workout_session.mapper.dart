@@ -24,27 +24,17 @@ class WorkoutSessionMapper extends ClassMapperBase<WorkoutSession> {
 
   static DateTime _$date(WorkoutSession v) => v.date;
   static const Field<WorkoutSession, DateTime> _f$date = Field('date', _$date);
-  static int _$weekNumber(WorkoutSession v) => v.weekNumber;
-  static const Field<WorkoutSession, int> _f$weekNumber = Field(
-    'weekNumber',
-    _$weekNumber,
-  );
   static WorkoutDay _$day(WorkoutSession v) => v.day;
   static const Field<WorkoutSession, WorkoutDay> _f$day = Field('day', _$day);
 
   @override
   final MappableFields<WorkoutSession> fields = const {
     #date: _f$date,
-    #weekNumber: _f$weekNumber,
     #day: _f$day,
   };
 
   static WorkoutSession _instantiate(DecodingData data) {
-    return WorkoutSession(
-      date: data.dec(_f$date),
-      weekNumber: data.dec(_f$weekNumber),
-      day: data.dec(_f$day),
-    );
+    return WorkoutSession(date: data.dec(_f$date), day: data.dec(_f$day));
   }
 
   @override
@@ -110,7 +100,7 @@ extension WorkoutSessionValueCopy<$R, $Out>
 abstract class WorkoutSessionCopyWith<$R, $In extends WorkoutSession, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
   WorkoutDayCopyWith<$R, WorkoutDay, WorkoutDay> get day;
-  $R call({DateTime? date, int? weekNumber, WorkoutDay? day});
+  $R call({DateTime? date, WorkoutDay? day});
   WorkoutSessionCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
     Then<$Out2, $R2> t,
   );
@@ -128,17 +118,15 @@ class _WorkoutSessionCopyWithImpl<$R, $Out>
   WorkoutDayCopyWith<$R, WorkoutDay, WorkoutDay> get day =>
       $value.day.copyWith.$chain((v) => call(day: v));
   @override
-  $R call({DateTime? date, int? weekNumber, WorkoutDay? day}) => $apply(
+  $R call({DateTime? date, WorkoutDay? day}) => $apply(
     FieldCopyWithData({
       if (date != null) #date: date,
-      if (weekNumber != null) #weekNumber: weekNumber,
       if (day != null) #day: day,
     }),
   );
   @override
   WorkoutSession $make(CopyWithData data) => WorkoutSession(
     date: data.get(#date, or: $value.date),
-    weekNumber: data.get(#weekNumber, or: $value.weekNumber),
     day: data.get(#day, or: $value.day),
   );
 

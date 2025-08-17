@@ -1,3 +1,4 @@
+import 'package:fit/presentation/theme/theme_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -14,7 +15,8 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'F I T',
-      theme: ThemeData(primarySwatch: Colors.blue),
+      theme: buildThemeData(Brightness.light),
+      darkTheme: buildThemeData(Brightness.dark),
       home: const HomeScreen(),
     );
   }

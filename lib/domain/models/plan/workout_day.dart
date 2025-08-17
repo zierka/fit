@@ -7,10 +7,15 @@ part 'workout_day.mapper.dart';
 
 @MappableClass()
 class WorkoutDay with WorkoutDayMappable {
+  final int weekNumber;
   final int dayNumber;
   final Map<Exercise, WorkoutSet> exercises;
 
-  WorkoutDay({required this.dayNumber, required this.exercises});
+  WorkoutDay({
+    required this.weekNumber,
+    required this.dayNumber,
+    required this.exercises,
+  });
 
   @override
   String toString() {

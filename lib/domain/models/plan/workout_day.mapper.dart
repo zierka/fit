@@ -23,6 +23,11 @@ class WorkoutDayMapper extends ClassMapperBase<WorkoutDay> {
   @override
   final String id = 'WorkoutDay';
 
+  static int _$weekNumber(WorkoutDay v) => v.weekNumber;
+  static const Field<WorkoutDay, int> _f$weekNumber = Field(
+    'weekNumber',
+    _$weekNumber,
+  );
   static int _$dayNumber(WorkoutDay v) => v.dayNumber;
   static const Field<WorkoutDay, int> _f$dayNumber = Field(
     'dayNumber',
@@ -34,12 +39,14 @@ class WorkoutDayMapper extends ClassMapperBase<WorkoutDay> {
 
   @override
   final MappableFields<WorkoutDay> fields = const {
+    #weekNumber: _f$weekNumber,
     #dayNumber: _f$dayNumber,
     #exercises: _f$exercises,
   };
 
   static WorkoutDay _instantiate(DecodingData data) {
     return WorkoutDay(
+      weekNumber: data.dec(_f$weekNumber),
       dayNumber: data.dec(_f$dayNumber),
       exercises: data.dec(_f$exercises),
     );
@@ -112,7 +119,11 @@ abstract class WorkoutDayCopyWith<$R, $In extends WorkoutDay, $Out>
     WorkoutSetCopyWith<$R, WorkoutSet, WorkoutSet>
   >
   get exercises;
-  $R call({int? dayNumber, Map<Exercise, WorkoutSet>? exercises});
+  $R call({
+    int? weekNumber,
+    int? dayNumber,
+    Map<Exercise, WorkoutSet>? exercises,
+  });
   WorkoutDayCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -137,14 +148,20 @@ class _WorkoutDayCopyWithImpl<$R, $Out>
     (v) => call(exercises: v),
   );
   @override
-  $R call({int? dayNumber, Map<Exercise, WorkoutSet>? exercises}) => $apply(
+  $R call({
+    int? weekNumber,
+    int? dayNumber,
+    Map<Exercise, WorkoutSet>? exercises,
+  }) => $apply(
     FieldCopyWithData({
+      if (weekNumber != null) #weekNumber: weekNumber,
       if (dayNumber != null) #dayNumber: dayNumber,
       if (exercises != null) #exercises: exercises,
     }),
   );
   @override
   WorkoutDay $make(CopyWithData data) => WorkoutDay(
+    weekNumber: data.get(#weekNumber, or: $value.weekNumber),
     dayNumber: data.get(#dayNumber, or: $value.dayNumber),
     exercises: data.get(#exercises, or: $value.exercises),
   );

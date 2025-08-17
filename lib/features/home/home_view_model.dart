@@ -1,55 +1,45 @@
+import 'package:fit/domain/common/execution.dart';
 import 'package:fit/domain/models/models.dart';
 import 'package:fit/domain/repositories/workout_repo.dart';
+import 'package:flutter/foundation.dart';
+
+import 'home_state.dart';
 
 class HomeViewModel {
   HomeViewModel(this._workoutRepo) {
-    _load();
+    _loadData();
   }
 
   final WorkoutRepo _workoutRepo;
 
-  late final WorkoutPlan plan;
-  late final WorkoutSessionHistory history;
+  final _state = ValueNotifier<HomeState>(HomeState());
 
-  void _load() {
-    plan = WorkoutPlan(exercises: exercises, weeks: 10);
-    history = _history;
+  ValueListenable<HomeState> get state => _state;
+
+  void _loadData() async {
+    _emit(dataLoadingExecution: const Executing());
+
+    await Future.delayed(const Duration(seconds: 1));
+
+    final plan = await _workoutRepo.loadWorkoutPlan();
+    final history = await _workoutRepo.loadWorkoutSessionHistory();
+
+    _emit(
+      dataLoadingExecution: const Succeeded(),
+      workoutPlan: plan,
+      workoutHistory: history,
+    );
+  }
+
+  void _emit({
+    Execution? dataLoadingExecution,
+    WorkoutPlan? workoutPlan,
+    WorkoutSessionHistory? workoutHistory,
+  }) {
+    _state.value = _state.value.copyWith(
+      dataLoadingExecution: dataLoadingExecution,
+      workoutPlan: workoutPlan,
+      workoutHistory: workoutHistory,
+    );
   }
 }
-
-final exercises = [
-  ExercisePlan(
-    exercise: Exercise(name: 'Pushup'),
-    startReps: 5,
-    targetReps: 39,
-  ),
-  ExercisePlan(exercise: Exercise(name: 'Situp'), startReps: 9, targetReps: 48),
-  ExercisePlan(
-    exercise: Exercise(name: 'Squat'),
-    startReps: 10,
-    targetReps: 54,
-  ),
-  ExercisePlan(
-    exercise: Exercise(name: 'Bench Dip'),
-    startReps: 5,
-    targetReps: 38,
-  ),
-];
-
-final _history = WorkoutSessionHistory(
-  workouts: [
-    WorkoutSession(
-      date: DateTime.now(),
-      weekNumber: 1,
-      day: WorkoutDay(
-        dayNumber: 1,
-        exercises: {
-          Exercise(name: 'Pushup'): WorkoutSet([5, 5, 5, 5, 5]),
-          Exercise(name: 'Situp'): WorkoutSet([5, 5, 5, 5, 5]),
-          Exercise(name: 'Squat'): WorkoutSet([5, 5, 5, 5, 5]),
-          Exercise(name: 'Bench Dip'): WorkoutSet([5, 5, 5, 5, 5]),
-        },
-      ),
-    ),
-  ],
-);

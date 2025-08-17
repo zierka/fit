@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../domain/models/models.dart';
+import '../../../domain/models/models.dart';
 
 class WorkoutPlanSummaryWidget extends StatefulWidget {
   const WorkoutPlanSummaryWidget({
@@ -89,7 +89,7 @@ class _WorkoutPlanSummaryWidgetState extends State<WorkoutPlanSummaryWidget> {
         ),
         Text('1', textAlign: TextAlign.center),
         Text(
-          widget.history.workouts.last.weekNumber.toString(),
+          widget.history.workouts.last.day.weekNumber.toString(),
           textAlign: TextAlign.center,
         ),
         Text(widget.plan.weeks.toString(), textAlign: TextAlign.center),
@@ -118,14 +118,19 @@ class _WorkoutPlanSummaryWidgetState extends State<WorkoutPlanSummaryWidget> {
         color: color,
         shape: CircleBorder(side: BorderSide(color: color, width: 1)),
       ),
-      child: Text(count.toString()),
+      child: Text(
+        count.toString(),
+        style: Theme.of(
+          context,
+        ).textTheme.labelMedium?.copyWith(color: Colors.black),
+      ),
     );
   }
 
   Map<Exercise, WorkoutExerciseProgress> _determineProgress() {
     final lastSession = widget.history.workouts.last;
 
-    final workoutWeek = widget.plan.weeksPlan[lastSession.weekNumber];
+    final workoutWeek = widget.plan.weeksPlan[lastSession.day.weekNumber];
 
     final workoutDay = workoutWeek.days[lastSession.day.dayNumber];
 
