@@ -15,13 +15,11 @@ class SessionRestWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         spacer(Dim.x32),
-        // Text(
-        //   sessionExercise.exercise.name,
-        //   style: Theme.of(context).textTheme.displayMedium,
-        //   textAlign: TextAlign.center,
-        // ),
-        spacer(Dim.x16),
-        // _set(),
+        Text(
+          'chill some',
+          style: Theme.of(context).textTheme.displayMedium,
+          textAlign: TextAlign.center,
+        ),
         spacer(Dim.x16),
       ],
     );

@@ -8,23 +8,22 @@ class WorkoutSessionState {
     required this.workoutDay,
     required this.actions,
     required this.currentActionIndex,
+    this.closeSignal = false,
   });
 
   final WorkoutDay workoutDay;
   final List<SessionAction> actions;
-
   final int currentActionIndex;
+  final bool closeSignal;
 
   SessionAction get currentAction => actions[currentActionIndex];
 
-  WorkoutSessionState copyWith({
-    List<SessionAction>? actions,
-    int? currentActionIndex,
-  }) {
+  WorkoutSessionState copyWith({int? currentActionIndex, bool? closeSignal}) {
     return WorkoutSessionState(
       workoutDay: workoutDay,
-      actions: actions ?? this.actions,
+      actions: actions,
       currentActionIndex: currentActionIndex ?? this.currentActionIndex,
+      closeSignal: closeSignal ?? this.closeSignal,
     );
   }
 
@@ -34,12 +33,14 @@ class WorkoutSessionState {
 
     return other.workoutDay == workoutDay &&
         const ListEquality().equals(other.actions, actions) &&
-        other.currentActionIndex == currentActionIndex;
+        other.currentActionIndex == currentActionIndex &&
+        other.closeSignal == closeSignal;
   }
 
   @override
   int get hashCode =>
       workoutDay.hashCode ^
       const ListEquality().hash(actions) ^
-      currentActionIndex.hashCode;
+      currentActionIndex.hashCode ^
+      closeSignal.hashCode;
 }

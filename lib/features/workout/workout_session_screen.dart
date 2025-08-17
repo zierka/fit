@@ -1,6 +1,4 @@
-import 'package:collection/collection.dart';
 import 'package:fit/di/providers.dart';
-import 'package:fit/features/home/widgets/rep_count.dart';
 import 'package:fit/features/workout/workout_session_input.dart';
 import 'package:fit/features/workout/workout_session_state.dart';
 import 'package:fit/presentation/presentation.dart';
@@ -39,7 +37,11 @@ class _WorkoutSessionScreenState extends ConsumerState<WorkoutSessionScreen> {
     return ValueListenableBuilder(
       valueListenable: _viewModel.state,
       builder: (context, state, _) {
-        // return LoadingIndicator();
+        if (state.closeSignal) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            Navigator.of(context).pop();
+          });
+        }
 
         return Column(
           mainAxisSize: MainAxisSize.max,

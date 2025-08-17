@@ -43,6 +43,8 @@ class WorkoutSessionViewModel {
       actions.add(rest);
     }
 
+    actions.removeLast();
+
     final sessionFinish = SessionFinish();
     actions.add(sessionFinish);
 
@@ -52,14 +54,22 @@ class WorkoutSessionViewModel {
   void _emit({
     //
     int? currentActionIndex,
+    bool? closeSignal,
   }) {
     _state.value = _state.value.copyWith(
       //
       currentActionIndex: currentActionIndex,
+      closeSignal: closeSignal,
     );
   }
 
   void onRepCompleted() {
-    _emit(currentActionIndex: _state.value.currentActionIndex + 1);
+    final newIndex = _state.value.currentActionIndex + 1;
+
+    if (newIndex > _state.value.actions.length - 1) {
+      _emit(closeSignal: true);
+    } else {
+      _emit(currentActionIndex: newIndex);
+    }
   }
 }

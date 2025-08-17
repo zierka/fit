@@ -47,14 +47,4 @@ class SessionRest implements SessionAction {
 
 class SessionFinish implements SessionAction {
   SessionFinish();
-
-  // @override
-  // bool operator ==(covariant SessionFinish other) {
-  //   if (identical(this, other)) return true;
-
-  //   return other.duration == duration;
-  // }
-
-  // @override
-  // int get hashCode => duration.hashCode;
 }

@@ -40,6 +40,7 @@ class SessionExerciseWidget extends StatelessWidget {
               type: index == sessionExercise.currentRepIndex
                   ? RepCountType.current
                   : RepCountType.next,
+              size: RepCountSize.large,
               filled: index <= sessionExercise.currentRepIndex,
               dimmed: index > sessionExercise.currentRepIndex,
             ),

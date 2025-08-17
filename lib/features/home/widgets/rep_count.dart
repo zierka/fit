@@ -6,32 +6,36 @@ class RepCount extends StatelessWidget {
     super.key,
     required this.reps,
     required this.type,
+    this.size = RepCountSize.small,
     this.filled = true,
     this.dimmed = false,
   });
 
   final int reps;
   final RepCountType type;
+  final RepCountSize size;
   final bool filled;
   final bool dimmed;
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).textTheme;
+
+    final textTheme = (switch (size) {
+      RepCountSize.small => theme.bodyLarge,
+      RepCountSize.large => theme.titleLarge,
+    })?.copyWith(color: filled ? Colors.black : color);
+
     return Container(
-      width: 30,
-      height: 30,
+      width: size.size,
+      height: size.size,
       margin: EdgeInsets.all(Dim.x4),
       alignment: Alignment.center,
       decoration: ShapeDecoration(
         color: filled ? color : null,
         shape: CircleBorder(side: BorderSide(color: color, width: 1)),
       ),
-      child: Text(
-        reps.toString(),
-        style: Theme.of(
-          context,
-        ).textTheme.labelMedium?.copyWith(color: filled ? Colors.black : color),
-      ),
+      child: Text(reps.toString(), style: textTheme),
     );
   }
 
@@ -48,3 +52,12 @@ class RepCount extends StatelessWidget {
 }
 
 enum RepCountType { start, current, next, target }
+
+enum RepCountSize { small, large }
+
+extension on RepCountSize {
+  double get size => switch (this) {
+    RepCountSize.small => 30.0,
+    RepCountSize.large => 50.0,
+  };
+}
