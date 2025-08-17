@@ -5,6 +5,8 @@ import 'package:fit/domain/repositories/app_preferences_repo_impl.dart';
 import 'package:fit/domain/repositories/workout_repo.dart';
 import 'package:fit/domain/repositories/workout_repo_impl.dart';
 import 'package:fit/features/home/home_view_model.dart';
+import 'package:fit/features/workout/workout_session_input.dart';
+import 'package:fit/features/workout/workout_session_view_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -38,4 +40,12 @@ final homeViewModel = Provider((ref) {
   final workoutRepo = ref.read(workoutRepoProvider);
 
   return HomeViewModel(workoutRepo);
+});
+
+Provider<WorkoutSessionViewModel> workoutSessionViewModel(
+  WorkoutSessionInput input,
+) => Provider((ref) {
+  final workoutRepo = ref.read(workoutRepoProvider);
+
+  return WorkoutSessionViewModel(input, workoutRepo);
 });

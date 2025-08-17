@@ -17,6 +17,8 @@ class WorkoutDay with WorkoutDayMappable {
     required this.exercises,
   });
 
+  String get weekAndDay => 'Week $weekNumber / Day $dayNumber';
+
   @override
   String toString() {
     final buffer = StringBuffer('Day $dayNumber:\n');

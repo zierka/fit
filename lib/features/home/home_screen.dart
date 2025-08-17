@@ -1,6 +1,8 @@
 import 'package:fit/di/providers.dart';
 import 'package:fit/features/home/widgets/workout_day_widget.dart';
 import 'package:fit/features/home/widgets/workout_plan_summary_widget.dart';
+import 'package:fit/features/workout/workout_session_input.dart';
+import 'package:fit/features/workout/workout_session_screen.dart';
 import 'package:fit/presentation/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -54,12 +56,27 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   }
 
   Widget _nextUp() {
+    final nextWorkoutDay = _viewModel.state.value.nextWorkoutDay!;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('Next Up'),
         spacer(Dim.x8),
-        WorkoutDayWidget(workoutDay: _viewModel.state.value.nextWorkoutDay!),
+        WorkoutDayWidget(
+          workoutDay: nextWorkoutDay,
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) {
+                  return WorkoutSessionScreen(
+                    input: WorkoutSessionInput(workoutDay: nextWorkoutDay),
+                  );
+                },
+              ),
+            );
+          },
+        ),
       ],
     );
   }

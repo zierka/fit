@@ -5,16 +5,29 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class WorkoutDayWidget extends StatelessWidget {
-  const WorkoutDayWidget({super.key, required this.workoutDay, this.date});
+  const WorkoutDayWidget({
+    super.key,
+    required this.workoutDay,
+    this.date,
+    this.onTap,
+  });
 
   final WorkoutDay workoutDay;
   final DateTime? date;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 3,
-      child: Padding(padding: const EdgeInsets.all(16.0), child: _content()),
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.all(Dim.x16),
+          child: _content(),
+        ),
+      ),
     );
   }
 
@@ -28,7 +41,7 @@ class WorkoutDayWidget extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('Week ${workoutDay.weekNumber} / Day ${workoutDay.dayNumber}'),
+            Text(workoutDay.weekAndDay),
             if (date != null) Text(DateFormat.MMMd().format(date!.toLocal())),
           ],
         ),

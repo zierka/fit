@@ -17,5 +17,12 @@ ThemeData buildThemeData(Brightness brightness) {
     splashFactory: Platform.isIOS
         ? NoSplash.splashFactory
         : InkRipple.splashFactory,
+    filledButtonTheme: FilledButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        minimumSize: Size.fromHeight(56),
+        foregroundColor: colorScheme.onPrimary,
+        backgroundColor: colorScheme.primary,
+      ),
+    ),
   );
 }
