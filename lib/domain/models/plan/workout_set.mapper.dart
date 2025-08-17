@@ -29,11 +29,18 @@ class WorkoutSetMapper extends ClassMapperBase<WorkoutSet> {
     _$maxReps,
     mode: FieldMode.member,
   );
+  static int _$totalReps(WorkoutSet v) => v.totalReps;
+  static const Field<WorkoutSet, int> _f$totalReps = Field(
+    'totalReps',
+    _$totalReps,
+    mode: FieldMode.member,
+  );
 
   @override
   final MappableFields<WorkoutSet> fields = const {
     #reps: _f$reps,
     #maxReps: _f$maxReps,
+    #totalReps: _f$totalReps,
   };
 
   static WorkoutSet _instantiate(DecodingData data) {

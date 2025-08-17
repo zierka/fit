@@ -36,12 +36,19 @@ class WorkoutDayMapper extends ClassMapperBase<WorkoutDay> {
   static Map<Exercise, WorkoutSet> _$exercises(WorkoutDay v) => v.exercises;
   static const Field<WorkoutDay, Map<Exercise, WorkoutSet>> _f$exercises =
       Field('exercises', _$exercises);
+  static String _$weekAndDay(WorkoutDay v) => v.weekAndDay;
+  static const Field<WorkoutDay, String> _f$weekAndDay = Field(
+    'weekAndDay',
+    _$weekAndDay,
+    mode: FieldMode.member,
+  );
 
   @override
   final MappableFields<WorkoutDay> fields = const {
     #weekNumber: _f$weekNumber,
     #dayNumber: _f$dayNumber,
     #exercises: _f$exercises,
+    #weekAndDay: _f$weekAndDay,
   };
 
   static WorkoutDay _instantiate(DecodingData data) {
