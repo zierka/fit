@@ -1,3 +1,5 @@
+import 'package:fit/features/home/widgets/rep_count.dart';
+import 'package:fit/presentation/presentation.dart';
 import 'package:flutter/material.dart';
 
 import '../../../domain/models/models.dart';
@@ -29,16 +31,13 @@ class _WorkoutPlanSummaryWidgetState extends State<WorkoutPlanSummaryWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('Your workout progress'),
-          SizedBox(height: 12.0),
-          _summaryCard(context),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Your workout progress'),
+        spacer(Dim.x8),
+        _summaryCard(context),
+      ],
     );
   }
 
@@ -84,7 +83,7 @@ class _WorkoutPlanSummaryWidgetState extends State<WorkoutPlanSummaryWidget> {
     return TableRow(
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          padding: const EdgeInsets.symmetric(vertical: Dim.x8),
           child: Text('WEEK ->'),
         ),
         Text('1', textAlign: TextAlign.center),
@@ -101,29 +100,10 @@ class _WorkoutPlanSummaryWidgetState extends State<WorkoutPlanSummaryWidget> {
     return TableRow(
       children: [
         Text(progress.exercise.name),
-        _repCount(progress.startReps, Colors.blue[300]!),
-        _repCount(progress.currentReps, Colors.yellow[300]!),
-        _repCount(progress.targetReps, Colors.green[300]!),
+        RepCount(reps: progress.startReps, type: RepCountType.start),
+        RepCount(reps: progress.currentReps, type: RepCountType.current),
+        RepCount(reps: progress.targetReps, type: RepCountType.target),
       ],
-    );
-  }
-
-  Widget _repCount(int count, Color color) {
-    return Container(
-      width: 30,
-      height: 30,
-      margin: EdgeInsets.all(4),
-      alignment: Alignment.center,
-      decoration: ShapeDecoration(
-        color: color,
-        shape: CircleBorder(side: BorderSide(color: color, width: 1)),
-      ),
-      child: Text(
-        count.toString(),
-        style: Theme.of(
-          context,
-        ).textTheme.labelMedium?.copyWith(color: Colors.black),
-      ),
     );
   }
 

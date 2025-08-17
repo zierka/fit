@@ -6,13 +6,13 @@ class HomeState {
     this.dataLoadingExecution = const Idle(),
     this.workoutPlan,
     this.workoutHistory,
-    this.nextWorkoutWeek,
+    this.nextWorkoutDay,
   });
 
   final Execution dataLoadingExecution;
   final WorkoutPlan? workoutPlan;
   final WorkoutSessionHistory? workoutHistory;
-  final WorkoutWeek? nextWorkoutWeek;
+  final WorkoutDay? nextWorkoutDay;
 
   @override
   bool operator ==(covariant HomeState other) {
@@ -21,7 +21,7 @@ class HomeState {
     return other.dataLoadingExecution == dataLoadingExecution &&
         other.workoutPlan == workoutPlan &&
         other.workoutHistory == workoutHistory &&
-        other.nextWorkoutWeek == nextWorkoutWeek;
+        other.nextWorkoutDay == nextWorkoutDay;
   }
 
   @override
@@ -29,19 +29,19 @@ class HomeState {
       dataLoadingExecution.hashCode ^
       workoutPlan.hashCode ^
       workoutHistory.hashCode ^
-      nextWorkoutWeek.hashCode;
+      nextWorkoutDay.hashCode;
 
   HomeState copyWith({
     Execution? dataLoadingExecution,
     WorkoutPlan? workoutPlan,
     WorkoutSessionHistory? workoutHistory,
-    WorkoutWeek? nextWorkoutWeek,
+    WorkoutDay? nextWorkoutDay,
   }) {
     return HomeState(
       dataLoadingExecution: dataLoadingExecution ?? this.dataLoadingExecution,
       workoutPlan: workoutPlan ?? this.workoutPlan,
       workoutHistory: workoutHistory ?? this.workoutHistory,
-      nextWorkoutWeek: nextWorkoutWeek ?? this.nextWorkoutWeek,
+      nextWorkoutDay: nextWorkoutDay ?? this.nextWorkoutDay,
     );
   }
 }

@@ -1,10 +1,9 @@
 import 'package:fit/di/providers.dart';
 import 'package:fit/features/home/widgets/workout_day_widget.dart';
 import 'package:fit/features/home/widgets/workout_plan_summary_widget.dart';
+import 'package:fit/presentation/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../presentation/widgets/loading_indicator.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -40,12 +39,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   Widget _content() {
     return ListView(
+      padding: EdgeInsets.all(Dim.x16),
       children: [
         WorkoutPlanSummaryWidget(
           plan: _viewModel.state.value.workoutPlan!,
           history: _viewModel.state.value.workoutHistory!,
         ),
+        spacer(Dim.x16),
         _nextUp(),
+        spacer(Dim.x16),
+        _pastSessions(),
       ],
     );
   }
@@ -53,7 +56,27 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   Widget _nextUp() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [Text('Next Up'), SizedBox(height: 12.0), WorkoutDayWidget()],
+      children: [
+        Text('Next Up'),
+        spacer(Dim.x8),
+        WorkoutDayWidget(workoutDay: _viewModel.state.value.nextWorkoutDay!),
+      ],
+    );
+  }
+
+  Widget _pastSessions() {
+    final sessions = _viewModel.state.value.workoutHistory?.workouts ?? [];
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Past Sessions'),
+        spacer(Dim.x8),
+        ...sessions.map(
+          (session) =>
+              WorkoutDayWidget(workoutDay: session.day, date: session.date),
+        ),
+      ],
     );
   }
 }

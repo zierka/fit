@@ -1,3 +1,5 @@
+import 'dart:developer' as developer;
+
 import 'package:dart_mappable/dart_mappable.dart';
 
 import '../models.dart';
@@ -24,6 +26,8 @@ class WorkoutPlan with WorkoutPlanMappable {
     this.setsPerDay = 5,
   }) {
     weeksPlan = _generatePlan();
+
+    developer.log(toString());
   }
 
   ExercisePlan planForExercise(Exercise exercise) {
@@ -56,18 +60,18 @@ class WorkoutPlan with WorkoutPlanMappable {
           for (var s = 1; s <= setsPerDay; s++) {
             final setBase = base + dayIncrement + (s - 1) * 0.05 * base;
 
-            int lastSetBonus = 0;
-            if (s == setsPerDay) {
-              if (base < 10) {
-                lastSetBonus = 1;
-              } else if (base < 20) {
-                lastSetBonus = 2;
-              } else {
-                lastSetBonus = 3;
-              }
-            }
+            // int lastSetBonus = 0;
+            // if (s == setsPerDay) {
+            //   if (base < 10) {
+            //     lastSetBonus = 1;
+            //   } else if (base < 20) {
+            //     lastSetBonus = 2;
+            //   } else {
+            //     lastSetBonus = 3;
+            //   }
+            // }
 
-            int reps = (setBase + lastSetBonus).round();
+            int reps = (setBase /* + lastSetBonus*/ ).round();
 
             // Cap reps to not exceed target + 3
             reps = reps > ex.targetReps + 3 ? ex.targetReps + 3 : reps;
@@ -88,5 +92,14 @@ class WorkoutPlan with WorkoutPlanMappable {
     }
 
     return plan;
+  }
+
+  @override
+  String toString() {
+    final buffer = StringBuffer('Plan:\n');
+    for (final week in weeksPlan) {
+      buffer.writeln(week.toString());
+    }
+    return buffer.toString();
   }
 }

@@ -23,11 +23,13 @@ class HomeViewModel {
 
     final plan = await _workoutRepo.loadWorkoutPlan();
     final history = await _workoutRepo.loadWorkoutSessionHistory();
+    final nextWorkoutDay = await _workoutRepo.loadNextWorkoutSession();
 
     _emit(
       dataLoadingExecution: const Succeeded(),
       workoutPlan: plan,
       workoutHistory: history,
+      nextWorkoutDay: nextWorkoutDay,
     );
   }
 
@@ -35,11 +37,13 @@ class HomeViewModel {
     Execution? dataLoadingExecution,
     WorkoutPlan? workoutPlan,
     WorkoutSessionHistory? workoutHistory,
+    WorkoutDay? nextWorkoutDay,
   }) {
     _state.value = _state.value.copyWith(
       dataLoadingExecution: dataLoadingExecution,
       workoutPlan: workoutPlan,
       workoutHistory: workoutHistory,
+      nextWorkoutDay: nextWorkoutDay,
     );
   }
 }

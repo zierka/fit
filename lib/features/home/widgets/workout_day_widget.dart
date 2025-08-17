@@ -1,10 +1,44 @@
+import 'package:fit/domain/models/models.dart';
+import 'package:fit/features/home/widgets/rep_count.dart';
+import 'package:fit/presentation/presentation.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class WorkoutDayWidget extends StatelessWidget {
-  const WorkoutDayWidget({super.key});
+  const WorkoutDayWidget({super.key, required this.workoutDay, this.date});
+
+  final WorkoutDay workoutDay;
+  final DateTime? date;
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Card(
+      elevation: 3,
+      child: Padding(padding: const EdgeInsets.all(16.0), child: _content()),
+    );
+  }
+
+  Widget _content() {
+    final type = RepCountType.next;
+    final workouts = workoutDay.exercises.values.toList();
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('Week ${workoutDay.weekNumber} / Day ${workoutDay.dayNumber}'),
+            if (date != null) Text(DateFormat.MMMd().format(date!.toLocal())),
+          ],
+        ),
+        spacer(Dim.x16),
+        Row(
+          children: workouts
+              .map((workout) => RepCount(reps: workout.maxReps, type: type))
+              .toList(),
+        ),
+      ],
+    );
   }
 }

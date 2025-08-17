@@ -21,7 +21,9 @@ class WorkoutDay with WorkoutDayMappable {
   String toString() {
     final buffer = StringBuffer('Day $dayNumber:\n');
     exercises.forEach((exercise, workoutSet) {
-      buffer.writeln('  [${exercise.name}: ${workoutSet}');
+      buffer.writeln(
+        '${exercise.name}: $workoutSet -> T ${workoutSet.totalReps}',
+      );
     });
     return buffer.toString();
   }
