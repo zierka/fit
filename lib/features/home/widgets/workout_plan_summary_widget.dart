@@ -121,8 +121,11 @@ class _WorkoutPlanSummaryWidgetState extends State<WorkoutPlanSummaryWidget> {
         startReps: exPlan.startReps,
         currentReps:
             lastWorkoutDay.exercises
-                .firstWhereOrNull((set) => set.exercise == set.exercise)
-                ?.totalReps ??
+                .firstWhereOrNull(
+                  (lastExSet) => lastExSet.exercise == set.exercise,
+                )
+                ?.reps
+                .first ??
             0,
         targetReps: exPlan.targetReps,
       );

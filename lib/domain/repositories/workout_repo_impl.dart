@@ -42,7 +42,7 @@ class WorkoutRepoImpl implements WorkoutRepo {
           (w) => w.weekNumber == lastSession.day.weekNumber,
         );
 
-        return week!.days[lastSession.day.dayNumber + 1];
+        return week!.days[lastSession.day.dayNumber];
       } else {
         final week = plan.weeksPlan.firstWhereOrNull(
           (w) => w.weekNumber == lastSession.day.weekNumber + 1,

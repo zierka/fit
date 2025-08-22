@@ -49,7 +49,7 @@ class WorkoutDayWidget extends StatelessWidget {
         Row(
           children: [
             ...workouts.map(
-              (workout) => RepCount(reps: workout.maxReps, type: type),
+              (workout) => RepCount(reps: workout.reps.first, type: type),
             ),
             Spacer(),
             if (onTap != null) Icon(Icons.chevron_right),

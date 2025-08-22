@@ -96,7 +96,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       children: [
         Text('Past Sessions'),
         spacer(Dim.x8),
-        ...sessions.map(
+        ...sessions.reversed.map(
           (session) =>
               WorkoutDayWidget(workoutDay: session.day, date: session.date),
         ),
