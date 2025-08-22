@@ -49,7 +49,7 @@ class WorkoutPlan with WorkoutPlanMappable {
       }
 
       for (var d = 1; d <= daysPerWeek; d++) {
-        Map<Exercise, WorkoutSet> dayExercises = {};
+        List<WorkoutSet> dayExercises = [];
 
         for (var ex in exercises) {
           final base = weeklyBase[ex]!;
@@ -80,7 +80,7 @@ class WorkoutPlan with WorkoutPlanMappable {
             repsList.add(reps);
           }
 
-          dayExercises[ex.exercise] = WorkoutSet(repsList);
+          dayExercises.add(WorkoutSet(ex.exercise, repsList));
         }
 
         days.add(

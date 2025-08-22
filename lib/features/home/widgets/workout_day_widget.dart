@@ -33,7 +33,7 @@ class WorkoutDayWidget extends StatelessWidget {
 
   Widget _content() {
     final type = RepCountType.next;
-    final workouts = workoutDay.exercises.values.toList();
+    final workouts = workoutDay.exercises;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

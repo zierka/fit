@@ -14,7 +14,6 @@ class WorkoutDayMapper extends ClassMapperBase<WorkoutDay> {
   static WorkoutDayMapper ensureInitialized() {
     if (_instance == null) {
       MapperContainer.globals.use(_instance = WorkoutDayMapper._());
-      ExerciseMapper.ensureInitialized();
       WorkoutSetMapper.ensureInitialized();
     }
     return _instance!;
@@ -33,9 +32,11 @@ class WorkoutDayMapper extends ClassMapperBase<WorkoutDay> {
     'dayNumber',
     _$dayNumber,
   );
-  static Map<Exercise, WorkoutSet> _$exercises(WorkoutDay v) => v.exercises;
-  static const Field<WorkoutDay, Map<Exercise, WorkoutSet>> _f$exercises =
-      Field('exercises', _$exercises);
+  static List<WorkoutSet> _$exercises(WorkoutDay v) => v.exercises;
+  static const Field<WorkoutDay, List<WorkoutSet>> _f$exercises = Field(
+    'exercises',
+    _$exercises,
+  );
   static String _$weekAndDay(WorkoutDay v) => v.weekAndDay;
   static const Field<WorkoutDay, String> _f$weekAndDay = Field(
     'weekAndDay',
@@ -119,18 +120,9 @@ extension WorkoutDayValueCopy<$R, $Out>
 
 abstract class WorkoutDayCopyWith<$R, $In extends WorkoutDay, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
-  MapCopyWith<
-    $R,
-    Exercise,
-    WorkoutSet,
-    WorkoutSetCopyWith<$R, WorkoutSet, WorkoutSet>
-  >
+  ListCopyWith<$R, WorkoutSet, WorkoutSetCopyWith<$R, WorkoutSet, WorkoutSet>>
   get exercises;
-  $R call({
-    int? weekNumber,
-    int? dayNumber,
-    Map<Exercise, WorkoutSet>? exercises,
-  });
+  $R call({int? weekNumber, int? dayNumber, List<WorkoutSet>? exercises});
   WorkoutDayCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -143,29 +135,21 @@ class _WorkoutDayCopyWithImpl<$R, $Out>
   late final ClassMapperBase<WorkoutDay> $mapper =
       WorkoutDayMapper.ensureInitialized();
   @override
-  MapCopyWith<
-    $R,
-    Exercise,
-    WorkoutSet,
-    WorkoutSetCopyWith<$R, WorkoutSet, WorkoutSet>
-  >
-  get exercises => MapCopyWith(
+  ListCopyWith<$R, WorkoutSet, WorkoutSetCopyWith<$R, WorkoutSet, WorkoutSet>>
+  get exercises => ListCopyWith(
     $value.exercises,
     (v, t) => v.copyWith.$chain(t),
     (v) => call(exercises: v),
   );
   @override
-  $R call({
-    int? weekNumber,
-    int? dayNumber,
-    Map<Exercise, WorkoutSet>? exercises,
-  }) => $apply(
-    FieldCopyWithData({
-      if (weekNumber != null) #weekNumber: weekNumber,
-      if (dayNumber != null) #dayNumber: dayNumber,
-      if (exercises != null) #exercises: exercises,
-    }),
-  );
+  $R call({int? weekNumber, int? dayNumber, List<WorkoutSet>? exercises}) =>
+      $apply(
+        FieldCopyWithData({
+          if (weekNumber != null) #weekNumber: weekNumber,
+          if (dayNumber != null) #dayNumber: dayNumber,
+          if (exercises != null) #exercises: exercises,
+        }),
+      );
   @override
   WorkoutDay $make(CopyWithData data) => WorkoutDay(
     weekNumber: data.get(#weekNumber, or: $value.weekNumber),

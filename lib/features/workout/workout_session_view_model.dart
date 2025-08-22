@@ -25,17 +25,16 @@ class WorkoutSessionViewModel {
   List<SessionAction> _sessionActions(WorkoutDay workoutDay) {
     List<SessionAction> actions = [];
 
-    final totalSets = workoutDay.exercises.values.first.reps.length;
+    final totalSets = workoutDay.exercises.first.reps.length;
 
     for (var i = 0; i < totalSets; i++) {
-      final sessionExercises = workoutDay.exercises
-          .map(
-            (exercise, set) => MapEntry(
-              exercise,
-              SessionExercise(exercise: exercise, set: set, currentRepIndex: i),
-            ),
-          )
-          .values;
+      final sessionExercises = workoutDay.exercises.map(
+        (set) => SessionExercise(
+          exercise: set.exercise,
+          set: set,
+          currentRepIndex: i,
+        ),
+      );
 
       actions.addAll(sessionExercises);
 

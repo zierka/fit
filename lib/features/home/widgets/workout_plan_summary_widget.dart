@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:fit/features/home/widgets/rep_count.dart';
 import 'package:fit/presentation/presentation.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,7 @@ class WorkoutPlanSummaryWidget extends StatefulWidget {
 }
 
 class _WorkoutPlanSummaryWidgetState extends State<WorkoutPlanSummaryWidget> {
-  late final Map<Exercise, WorkoutExerciseProgress> progress;
+  late final List<WorkoutExerciseProgress> progress;
 
   WorkoutDay get lastWorkoutDay =>
       widget.history.workouts.lastOrNull?.day ??
@@ -64,11 +65,7 @@ class _WorkoutPlanSummaryWidgetState extends State<WorkoutPlanSummaryWidget> {
         3: FixedColumnWidth(50),
       },
       defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-      children: [
-        _header(),
-        _subHeader(),
-        ...progress.values.map(_workoutExercise),
-      ],
+      children: [_header(), _subHeader(), ...progress.map(_workoutExercise)],
     );
   }
 
@@ -111,26 +108,27 @@ class _WorkoutPlanSummaryWidgetState extends State<WorkoutPlanSummaryWidget> {
     );
   }
 
-  Map<Exercise, WorkoutExerciseProgress> _determineProgress() {
+  List<WorkoutExerciseProgress> _determineProgress() {
     final workoutWeek = widget.plan.weeksPlan[lastWorkoutDay.weekNumber];
 
     final workoutDay = workoutWeek.days[lastWorkoutDay.dayNumber];
 
-    final progress = workoutDay.exercises.map((exercise, set) {
-      final exPlan = widget.plan.planForExercise(exercise);
+    final progress = workoutDay.exercises.map((set) {
+      final exPlan = widget.plan.planForExercise(set.exercise);
 
-      return MapEntry(
-        exercise,
-        WorkoutExerciseProgress(
-          exercise: exercise,
-          startReps: exPlan.startReps,
-          currentReps: lastWorkoutDay.exercises[exercise]?.maxReps ?? 0,
-          targetReps: exPlan.targetReps,
-        ),
+      return WorkoutExerciseProgress(
+        exercise: set.exercise,
+        startReps: exPlan.startReps,
+        currentReps:
+            lastWorkoutDay.exercises
+                .firstWhereOrNull((set) => set.exercise == set.exercise)
+                ?.totalReps ??
+            0,
+        targetReps: exPlan.targetReps,
       );
     });
 
-    return progress;
+    return progress.toList();
   }
 }
 

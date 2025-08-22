@@ -1,6 +1,5 @@
 import 'package:dart_mappable/dart_mappable.dart';
 
-import 'exercise.dart';
 import 'workout_set.dart';
 
 part 'workout_day.mapper.dart';
@@ -9,7 +8,7 @@ part 'workout_day.mapper.dart';
 class WorkoutDay with WorkoutDayMappable {
   final int weekNumber;
   final int dayNumber;
-  final Map<Exercise, WorkoutSet> exercises;
+  final List<WorkoutSet> exercises;
 
   WorkoutDay({
     required this.weekNumber,
@@ -22,10 +21,8 @@ class WorkoutDay with WorkoutDayMappable {
   @override
   String toString() {
     final buffer = StringBuffer('Day $dayNumber:\n');
-    exercises.forEach((exercise, workoutSet) {
-      buffer.writeln(
-        '${exercise.name}: $workoutSet -> T ${workoutSet.totalReps}',
-      );
+    exercises.forEach((workoutSet) {
+      buffer.writeln('$workoutSet -> T ${workoutSet.totalReps}');
     });
     return buffer.toString();
   }

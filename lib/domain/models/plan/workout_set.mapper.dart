@@ -14,6 +14,7 @@ class WorkoutSetMapper extends ClassMapperBase<WorkoutSet> {
   static WorkoutSetMapper ensureInitialized() {
     if (_instance == null) {
       MapperContainer.globals.use(_instance = WorkoutSetMapper._());
+      ExerciseMapper.ensureInitialized();
     }
     return _instance!;
   }
@@ -21,6 +22,11 @@ class WorkoutSetMapper extends ClassMapperBase<WorkoutSet> {
   @override
   final String id = 'WorkoutSet';
 
+  static Exercise _$exercise(WorkoutSet v) => v.exercise;
+  static const Field<WorkoutSet, Exercise> _f$exercise = Field(
+    'exercise',
+    _$exercise,
+  );
   static List<int> _$reps(WorkoutSet v) => v.reps;
   static const Field<WorkoutSet, List<int>> _f$reps = Field('reps', _$reps);
   static int _$maxReps(WorkoutSet v) => v.maxReps;
@@ -38,13 +44,14 @@ class WorkoutSetMapper extends ClassMapperBase<WorkoutSet> {
 
   @override
   final MappableFields<WorkoutSet> fields = const {
+    #exercise: _f$exercise,
     #reps: _f$reps,
     #maxReps: _f$maxReps,
     #totalReps: _f$totalReps,
   };
 
   static WorkoutSet _instantiate(DecodingData data) {
-    return WorkoutSet(data.dec(_f$reps));
+    return WorkoutSet(data.dec(_f$exercise), data.dec(_f$reps));
   }
 
   @override
@@ -107,8 +114,9 @@ extension WorkoutSetValueCopy<$R, $Out>
 
 abstract class WorkoutSetCopyWith<$R, $In extends WorkoutSet, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
+  ExerciseCopyWith<$R, Exercise, Exercise> get exercise;
   ListCopyWith<$R, int, ObjectCopyWith<$R, int, int>> get reps;
-  $R call({List<int>? reps});
+  $R call({Exercise? exercise, List<int>? reps});
   WorkoutSetCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -121,17 +129,26 @@ class _WorkoutSetCopyWithImpl<$R, $Out>
   late final ClassMapperBase<WorkoutSet> $mapper =
       WorkoutSetMapper.ensureInitialized();
   @override
+  ExerciseCopyWith<$R, Exercise, Exercise> get exercise =>
+      $value.exercise.copyWith.$chain((v) => call(exercise: v));
+  @override
   ListCopyWith<$R, int, ObjectCopyWith<$R, int, int>> get reps => ListCopyWith(
     $value.reps,
     (v, t) => ObjectCopyWith(v, $identity, t),
     (v) => call(reps: v),
   );
   @override
-  $R call({List<int>? reps}) =>
-      $apply(FieldCopyWithData({if (reps != null) #reps: reps}));
+  $R call({Exercise? exercise, List<int>? reps}) => $apply(
+    FieldCopyWithData({
+      if (exercise != null) #exercise: exercise,
+      if (reps != null) #reps: reps,
+    }),
+  );
   @override
-  WorkoutSet $make(CopyWithData data) =>
-      WorkoutSet(data.get(#reps, or: $value.reps));
+  WorkoutSet $make(CopyWithData data) => WorkoutSet(
+    data.get(#exercise, or: $value.exercise),
+    data.get(#reps, or: $value.reps),
+  );
 
   @override
   WorkoutSetCopyWith<$R2, WorkoutSet, $Out2> $chain<$R2, $Out2>(
