@@ -63,13 +63,21 @@ class WorkoutSessionViewModel {
     );
   }
 
-  void onRepCompleted() {
+  Future<void> onRepCompleted() async {
     final newIndex = _state.value.currentActionIndex + 1;
 
     if (newIndex > _state.value.actions.length - 1) {
+      await _saveProgress();
+
       _emit(closeSignal: true);
     } else {
       _emit(currentActionIndex: newIndex);
     }
+  }
+
+  Future<void> _saveProgress() async {
+    final session = WorkoutSession(date: DateTime.now(), day: input.workoutDay);
+
+    await _workoutRepo.saveWorkoutSession(session);
   }
 }

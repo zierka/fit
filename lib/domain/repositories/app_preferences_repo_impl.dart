@@ -9,7 +9,7 @@ class AppPreferencesRepoImpl implements AppPreferencesRepo {
   final LocalStorage _localStorage;
 
   @override
-  Future<WorkoutPlan?> loadWorkoutPlan() async {
+  Future<WorkoutPlan?> getWorkoutPlan() async {
     final json = await _localStorage.getJson(_Keys.workoutPlan);
 
     if (json != null) {
@@ -20,20 +20,26 @@ class AppPreferencesRepoImpl implements AppPreferencesRepo {
   }
 
   @override
-  Future<void> saveWorkoutPlan(WorkoutPlan plan) async {
+  Future<void> setWorkoutPlan(WorkoutPlan plan) async {
     final json = plan.toMap();
     await _localStorage.setJson(_Keys.workoutPlan, json);
   }
 
   @override
-  Future<WorkoutSessionHistory> loadWorkoutSessionHistory() async {
+  Future<WorkoutSessionHistory?> getWorkoutSessionHistory() async {
     final json = await _localStorage.getJson(_Keys.workoutSessionHistory);
 
     if (json != null) {
       return WorkoutSessionHistoryMapper.fromMap(json);
     } else {
-      return WorkoutSessionHistory(workouts: []);
+      return null;
     }
+  }
+
+  @override
+  Future<void> setWorkoutSessionHistory(WorkoutSessionHistory history) async {
+    final json = history.toMap();
+    await _localStorage.setJson(_Keys.workoutSessionHistory, json);
   }
 }
 

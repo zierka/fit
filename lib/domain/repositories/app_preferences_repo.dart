@@ -1,8 +1,9 @@
 import 'package:fit/domain/models/models.dart';
 
 abstract class AppPreferencesRepo {
-  Future<WorkoutPlan?> loadWorkoutPlan();
-  Future<void> saveWorkoutPlan(WorkoutPlan plan);
+  Future<WorkoutPlan?> getWorkoutPlan();
+  Future<void> setWorkoutPlan(WorkoutPlan plan);
 
-  Future<WorkoutSessionHistory> loadWorkoutSessionHistory();
+  Future<WorkoutSessionHistory?> getWorkoutSessionHistory();
+  Future<void> setWorkoutSessionHistory(WorkoutSessionHistory history);
 }

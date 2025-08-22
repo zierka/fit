@@ -56,7 +56,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   }
 
   Widget _nextUp() {
-    final nextWorkoutDay = _viewModel.state.value.nextWorkoutDay!;
+    final nextWorkoutDay =
+        _viewModel.state.value.nextWorkoutDay ??
+        _viewModel.state.value.workoutPlan!.weeksPlan.first.days.first;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

@@ -22,6 +22,10 @@ class WorkoutPlanSummaryWidget extends StatefulWidget {
 class _WorkoutPlanSummaryWidgetState extends State<WorkoutPlanSummaryWidget> {
   late final Map<Exercise, WorkoutExerciseProgress> progress;
 
+  WorkoutDay get lastWorkoutDay =>
+      widget.history.workouts.lastOrNull?.day ??
+      widget.plan.weeksPlan.first.days.first;
+
   @override
   void initState() {
     super.initState();
@@ -86,11 +90,11 @@ class _WorkoutPlanSummaryWidgetState extends State<WorkoutPlanSummaryWidget> {
           padding: const EdgeInsets.symmetric(vertical: Dim.x8),
           child: Text('WEEK ->'),
         ),
-        Text('1', textAlign: TextAlign.center),
         Text(
-          widget.history.workouts.last.day.weekNumber.toString(),
+          widget.plan.weeksPlan.first.weekNumber.toString(),
           textAlign: TextAlign.center,
         ),
+        Text(lastWorkoutDay.weekNumber.toString(), textAlign: TextAlign.center),
         Text(widget.plan.weeks.toString(), textAlign: TextAlign.center),
       ],
     );
@@ -108,11 +112,9 @@ class _WorkoutPlanSummaryWidgetState extends State<WorkoutPlanSummaryWidget> {
   }
 
   Map<Exercise, WorkoutExerciseProgress> _determineProgress() {
-    final lastSession = widget.history.workouts.last;
+    final workoutWeek = widget.plan.weeksPlan[lastWorkoutDay.weekNumber];
 
-    final workoutWeek = widget.plan.weeksPlan[lastSession.day.weekNumber];
-
-    final workoutDay = workoutWeek.days[lastSession.day.dayNumber];
+    final workoutDay = workoutWeek.days[lastWorkoutDay.dayNumber];
 
     final progress = workoutDay.exercises.map((exercise, set) {
       final exPlan = widget.plan.planForExercise(exercise);
@@ -122,7 +124,7 @@ class _WorkoutPlanSummaryWidgetState extends State<WorkoutPlanSummaryWidget> {
         WorkoutExerciseProgress(
           exercise: exercise,
           startReps: exPlan.startReps,
-          currentReps: lastSession.day.exercises[exercise]?.maxReps ?? 0,
+          currentReps: lastWorkoutDay.exercises[exercise]?.maxReps ?? 0,
           targetReps: exPlan.targetReps,
         ),
       );

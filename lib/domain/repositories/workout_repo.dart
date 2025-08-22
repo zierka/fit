@@ -7,4 +7,5 @@ abstract class WorkoutRepo {
   Future<WorkoutDay?> loadNextWorkoutSession();
 
   Future<WorkoutSessionHistory> loadWorkoutSessionHistory();
+  Future<void> saveWorkoutSession(WorkoutSession session);
 }

@@ -11,14 +11,20 @@ class WorkoutRepoImpl implements WorkoutRepo {
 
   @override
   Future<WorkoutPlan?> loadWorkoutPlan() async {
-    // return _appPreferencesRepo.loadWorkoutPlan();
+    final plan = await _appPreferencesRepo.getWorkoutPlan();
 
-    return _plan;
+    if (plan == null) {
+      await _appPreferencesRepo.setWorkoutPlan(_plan);
+
+      return _plan;
+    }
+
+    return plan;
   }
 
   @override
   Future<void> saveWorkoutPlan(WorkoutPlan plan) =>
-      _appPreferencesRepo.saveWorkoutPlan(plan);
+      _appPreferencesRepo.setWorkoutPlan(plan);
 
   @override
   Future<WorkoutDay?> loadNextWorkoutSession() async {
@@ -31,25 +37,41 @@ class WorkoutRepoImpl implements WorkoutRepo {
     final lastSession = history.workouts.lastOrNull;
 
     if (lastSession != null) {
-      // lastSession.weekNumber;
-      // final week = plan.weeksPlan.firstWhereOrNull(
-      //   (week) => week.weekNumber == lastSession.weekNumber,
-      // )!;
+      if (lastSession.day.dayNumber < plan.daysPerWeek - 1) {
+        final week = plan.weeksPlan.firstWhereOrNull(
+          (w) => w.weekNumber == lastSession.day.weekNumber,
+        );
 
-      return plan.weeksPlan.first.days.first;
+        return week!.days[lastSession.day.dayNumber + 1];
+      } else {
+        final week = plan.weeksPlan.firstWhereOrNull(
+          (w) => w.weekNumber == lastSession.day.weekNumber + 1,
+        );
+
+        return week!.days.first;
+      }
     } else {
-      return plan.weeksPlan.first.days.first;
+      return null;
     }
   }
 
   @override
   Future<WorkoutSessionHistory> loadWorkoutSessionHistory() async {
-    // return _appPreferencesRepo.loadWorkoutSessionHistory();
+    final history = await _appPreferencesRepo.getWorkoutSessionHistory();
 
-    return _history;
+    return history ?? WorkoutSessionHistory(workouts: []);
   }
 
-  //
+  @override
+  Future<void> saveWorkoutSession(WorkoutSession session) async {
+    final history = await loadWorkoutSessionHistory();
+
+    final updatedHistory = history.copyWith(
+      workouts: [...history.workouts, session],
+    );
+
+    await _appPreferencesRepo.setWorkoutSessionHistory(updatedHistory);
+  }
 
   late final _plan = WorkoutPlan(exercises: _exercises, weeks: 10);
 
@@ -75,22 +97,4 @@ class WorkoutRepoImpl implements WorkoutRepo {
       targetReps: 38,
     ),
   ];
-
-  final _history = WorkoutSessionHistory(
-    workouts: [
-      WorkoutSession(
-        date: DateTime.now(),
-        day: WorkoutDay(
-          weekNumber: 2,
-          dayNumber: 1,
-          exercises: {
-            Exercise(name: 'Pushup'): WorkoutSet([5, 5, 5, 5, 5]),
-            Exercise(name: 'Situp'): WorkoutSet([5, 5, 5, 5, 5]),
-            Exercise(name: 'Squat'): WorkoutSet([5, 5, 5, 5, 5]),
-            Exercise(name: 'Bench Dip'): WorkoutSet([5, 5, 5, 5, 5]),
-          },
-        ),
-      ),
-    ],
-  );
 }
