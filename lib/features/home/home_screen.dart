@@ -1,4 +1,5 @@
 import 'package:fit/di/providers.dart';
+import 'package:fit/domain/models/models.dart';
 import 'package:fit/features/home/widgets/workout_day_widget.dart';
 import 'package:fit/features/home/widgets/workout_plan_summary_widget.dart';
 import 'package:fit/features/workout/workout_session_input.dart';
@@ -67,20 +68,24 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         spacer(Dim.x8),
         WorkoutDayWidget(
           workoutDay: nextWorkoutDay,
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) {
-                  return WorkoutSessionScreen(
-                    input: WorkoutSessionInput(workoutDay: nextWorkoutDay),
-                  );
-                },
-              ),
-            );
-          },
+          onTap: () => _onTapNextWorkout(nextWorkoutDay),
         ),
       ],
     );
+  }
+
+  Future<void> _onTapNextWorkout(WorkoutDay nextWorkoutDay) async {
+    await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) {
+          return WorkoutSessionScreen(
+            input: WorkoutSessionInput(workoutDay: nextWorkoutDay),
+          );
+        },
+      ),
+    );
+
+    _viewModel.reload();
   }
 
   Widget _pastSessions() {

@@ -37,9 +37,9 @@ class SessionExerciseWidget extends StatelessWidget {
           .mapIndexed(
             (index, rep) => RepCount(
               reps: rep,
-              type: index == sessionExercise.currentRepIndex
-                  ? RepCountType.current
-                  : RepCountType.next,
+              type: index >= sessionExercise.currentRepIndex
+                  ? RepCountType.next
+                  : RepCountType.current,
               size: RepCountSize.large,
               filled: index <= sessionExercise.currentRepIndex,
               dimmed: index > sessionExercise.currentRepIndex,

@@ -33,6 +33,10 @@ class HomeViewModel {
     );
   }
 
+  void reload() {
+    _loadData();
+  }
+
   void _emit({
     Execution? dataLoadingExecution,
     WorkoutPlan? workoutPlan,
