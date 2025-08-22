@@ -85,14 +85,20 @@ class _WorkoutPlanSummaryWidgetState extends State<WorkoutPlanSummaryWidget> {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(vertical: Dim.x8),
-          child: Text('WEEK ->'),
+          child: Text(''),
         ),
         Text(
-          widget.plan.weeksPlan.first.weekNumber.toString(),
+          '${widget.plan.weeksPlan.first.weekNumber}/1',
           textAlign: TextAlign.center,
         ),
-        Text(lastWorkoutDay.weekNumber.toString(), textAlign: TextAlign.center),
-        Text(widget.plan.weeks.toString(), textAlign: TextAlign.center),
+        Text(
+          '${lastWorkoutDay.weekNumber}/${lastWorkoutDay.dayNumber}',
+          textAlign: TextAlign.center,
+        ),
+        Text(
+          '${widget.plan.weeksPlan.length}/${widget.plan.daysPerWeek}',
+          textAlign: TextAlign.center,
+        ),
       ],
     );
   }
@@ -109,9 +115,9 @@ class _WorkoutPlanSummaryWidgetState extends State<WorkoutPlanSummaryWidget> {
   }
 
   List<WorkoutExerciseProgress> _determineProgress() {
-    final workoutWeek = widget.plan.weeksPlan[lastWorkoutDay.weekNumber];
+    final workoutWeek = widget.plan.weeksPlan[lastWorkoutDay.weekNumber - 1];
 
-    final workoutDay = workoutWeek.days[lastWorkoutDay.dayNumber];
+    final workoutDay = workoutWeek.days[lastWorkoutDay.dayNumber - 1];
 
     final progress = workoutDay.exercises.map((set) {
       final exPlan = widget.plan.planForExercise(set.exercise);

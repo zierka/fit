@@ -6,7 +6,10 @@ part 'workout_day.mapper.dart';
 
 @MappableClass()
 class WorkoutDay with WorkoutDayMappable {
+  /// 1..n
   final int weekNumber;
+
+  /// 1..n
   final int dayNumber;
   final List<WorkoutSet> exercises;
 

@@ -37,12 +37,12 @@ class WorkoutRepoImpl implements WorkoutRepo {
     final lastSession = history.workouts.lastOrNull;
 
     if (lastSession != null) {
-      if (lastSession.day.dayNumber < plan.daysPerWeek - 1) {
+      if (lastSession.day.dayNumber < plan.daysPerWeek) {
         final week = plan.weeksPlan.firstWhereOrNull(
           (w) => w.weekNumber == lastSession.day.weekNumber,
         );
 
-        return week!.days[lastSession.day.dayNumber];
+        return week!.days[lastSession.day.dayNumber - 1];
       } else {
         final week = plan.weeksPlan.firstWhereOrNull(
           (w) => w.weekNumber == lastSession.day.weekNumber + 1,
