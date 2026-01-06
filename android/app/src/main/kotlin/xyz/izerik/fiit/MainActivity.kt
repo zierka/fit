@@ -1,4 +1,4 @@
-package com.example.fit
+package xyz.izerik.fiit
 
 import io.flutter.embedding.android.FlutterActivity
 
