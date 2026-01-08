@@ -42,7 +42,8 @@ class WorkoutRepoImpl implements WorkoutRepo {
           (w) => w.weekNumber == lastSession.day.weekNumber,
         );
 
-        return week!.days[lastSession.day.dayNumber - 1];
+        // -1 for 0-based index, +1 for next day
+        return week!.days[lastSession.day.dayNumber - 1 + 1];
       } else {
         final week = plan.weeksPlan.firstWhereOrNull(
           (w) => w.weekNumber == lastSession.day.weekNumber + 1,
@@ -78,8 +79,8 @@ class WorkoutRepoImpl implements WorkoutRepo {
   final _exercises = [
     ExercisePlan(
       exercise: Exercise(name: 'Pushup'),
-      startReps: 5,
-      targetReps: 39,
+      startReps: 3,
+      targetReps: 30,
     ),
     ExercisePlan(
       exercise: Exercise(name: 'Situp'),
@@ -94,7 +95,7 @@ class WorkoutRepoImpl implements WorkoutRepo {
     ExercisePlan(
       exercise: Exercise(name: 'Bench Dip'),
       startReps: 5,
-      targetReps: 38,
+      targetReps: 40,
     ),
   ];
 }
