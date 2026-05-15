@@ -2,6 +2,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 // ignore_for_file: type=lint
+// ignore_for_file: invalid_use_of_protected_member
 // ignore_for_file: unused_element, unnecessary_cast, override_on_non_overriding_member
 // ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
@@ -37,19 +38,12 @@ class WorkoutDayMapper extends ClassMapperBase<WorkoutDay> {
     'exercises',
     _$exercises,
   );
-  static String _$weekAndDay(WorkoutDay v) => v.weekAndDay;
-  static const Field<WorkoutDay, String> _f$weekAndDay = Field(
-    'weekAndDay',
-    _$weekAndDay,
-    mode: FieldMode.member,
-  );
 
   @override
   final MappableFields<WorkoutDay> fields = const {
     #weekNumber: _f$weekNumber,
     #dayNumber: _f$dayNumber,
     #exercises: _f$exercises,
-    #weekAndDay: _f$weekAndDay,
   };
 
   static WorkoutDay _instantiate(DecodingData data) {

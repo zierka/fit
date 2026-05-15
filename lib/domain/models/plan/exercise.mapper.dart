@@ -2,6 +2,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 // ignore_for_file: type=lint
+// ignore_for_file: invalid_use_of_protected_member
 // ignore_for_file: unused_element, unnecessary_cast, override_on_non_overriding_member
 // ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
@@ -23,18 +24,9 @@ class ExerciseMapper extends ClassMapperBase<Exercise> {
 
   static String _$name(Exercise v) => v.name;
   static const Field<Exercise, String> _f$name = Field('name', _$name);
-  static int _$hashCode(Exercise v) => v.hashCode;
-  static const Field<Exercise, int> _f$hashCode = Field(
-    'hashCode',
-    _$hashCode,
-    mode: FieldMode.member,
-  );
 
   @override
-  final MappableFields<Exercise> fields = const {
-    #name: _f$name,
-    #hashCode: _f$hashCode,
-  };
+  final MappableFields<Exercise> fields = const {#name: _f$name};
 
   static Exercise _instantiate(DecodingData data) {
     return Exercise(name: data.dec(_f$name));

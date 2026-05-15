@@ -2,6 +2,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 // ignore_for_file: type=lint
+// ignore_for_file: invalid_use_of_protected_member
 // ignore_for_file: unused_element, unnecessary_cast, override_on_non_overriding_member
 // ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
@@ -29,25 +30,11 @@ class WorkoutSetMapper extends ClassMapperBase<WorkoutSet> {
   );
   static List<int> _$reps(WorkoutSet v) => v.reps;
   static const Field<WorkoutSet, List<int>> _f$reps = Field('reps', _$reps);
-  static int _$maxReps(WorkoutSet v) => v.maxReps;
-  static const Field<WorkoutSet, int> _f$maxReps = Field(
-    'maxReps',
-    _$maxReps,
-    mode: FieldMode.member,
-  );
-  static int _$totalReps(WorkoutSet v) => v.totalReps;
-  static const Field<WorkoutSet, int> _f$totalReps = Field(
-    'totalReps',
-    _$totalReps,
-    mode: FieldMode.member,
-  );
 
   @override
   final MappableFields<WorkoutSet> fields = const {
     #exercise: _f$exercise,
     #reps: _f$reps,
-    #maxReps: _f$maxReps,
-    #totalReps: _f$totalReps,
   };
 
   static WorkoutSet _instantiate(DecodingData data) {
